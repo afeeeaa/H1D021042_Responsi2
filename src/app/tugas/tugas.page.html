@@ -1,0 +1,88 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Data Tugas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngFor="let item of dataTugas">
+    <ion-item>
+      <ion-label>
+        <h2>{{ item.nama_tugas }}</h2>
+        <p>{{ item.deskripsi }}</p>
+      </ion-label>
+      <ion-buttons slot="end">
+        <ion-button color="danger" (click)="hapusTugas(item.id)">
+          Hapus
+        </ion-button>
+        <ion-button (click)="open_modal_edit(true, item.id)">
+          Edit
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-card>
+
+  <ion-card>
+    <ion-button (click)="open_modal_tambah(true)" expand="full">
+      Tambah Tugas
+    </ion-button>
+  </ion-card>
+
+  <!-- Modal untuk tambah -->
+  <ion-modal [isOpen]="modal_tambah">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar color="primary">
+          <ion-buttons slot="start">
+            <ion-button type="button" (click)="cancel()" color="light">Batal</ion-button>
+          </ion-buttons>
+          <ion-title>Tambah Tugas</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <ion-item>
+          <ion-label position="floating">Nama Tugas</ion-label>
+          <ion-input [(ngModel)]="nama_tugas" type="text" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Deskripsi Tugas</ion-label>
+          <ion-input [(ngModel)]="deskripsi" type="text" required></ion-input>
+        </ion-item>
+        <ion-button (click)="tambahTugas()" color="success" shape="full" expand="full">
+          Tambah Tugas
+        </ion-button>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+  <!-- Modal untuk edit -->
+  <ion-modal [isOpen]="modal_edit">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar color="primary">
+          <ion-buttons slot="start">
+            <ion-button type="button" (click)="cancel()" color="light">Batal</ion-button>
+          </ion-buttons>
+          <ion-title>Edit Tugas</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <ion-item>
+          <ion-label position="floating">Nama Tugas</ion-label>
+          <ion-input [(ngModel)]="nama_tugas" type="text" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Deskripsi Tugas</ion-label>
+          <ion-input [(ngModel)]="deskripsi" type="text" required></ion-input>
+        </ion-item>
+        <ion-input [(ngModel)]="id" type="hidden"></ion-input>
+        <ion-button (click)="editTugas()" color="warning" shape="full" expand="full">
+          Edit Tugas
+        </ion-button>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>
